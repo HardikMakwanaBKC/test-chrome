@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from flask import Flask
 import time
+import tempfile
 
 def setup_default_browser_driver():
     """
@@ -11,8 +12,11 @@ def setup_default_browser_driver():
     Returns:
         WebDriver: An instance of WebDriver for the default browser.
     """
-    # Create an instance of ChromeOptions
-    options = Options()
+    # Create a temporary directory for user data
+    user_data_dir = tempfile.mkdtemp()
+
+    options = webdriver.ChromeOptions()
+    options.add_argument(f'--user-data-dir={user_data_dir}')
 
     # # Use headless mode for server environments (optional)
     # options.add_argument("--headless")  # Comment this line if you want to see the browser
